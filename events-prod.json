@@ -1,0 +1,6 @@
+{
+  "SpotASGName":
+    "webhooks-staging-deployment-cluster-brown-SidekiqSpotServerGroup-1R1ZPPGSWWW7D",
+  "OnDemandASGName":
+    "webhooks-staging-deployment-cluster-brown-SidekiqServerGroup-1JW3LQ58FQM9N"
+}

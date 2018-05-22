@@ -1,0 +1,45 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+
+Resources:
+  SpotMatchFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Description: Ensure the number of in-service instances in a Spot ASG is backed up by capacity in an On-Demand ASG
+      Handler: main
+      Runtime: go1.x
+      CodeUri: .
+      Timeout: 5
+      Tracing: Active
+      AutoPublishAlias: live
+      Policies:
+        - AWSLambdaBasicExecutionRole
+        - AWSXrayWriteOnlyAccess
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - cloudwatch:GetMetricData
+                - cloudwatch:GetMetricStatistics
+                - cloudwatch:ListMetrics
+              Resource:
+                - "*"
+        - Version: 2012-10-17
+          Statement:
+            - Effect: Allow
+              Action:
+                - autoscaling:DescribeAutoScalingGroups
+                - autoscaling:UpdateAutoScalingGroup
+              Resource:
+                - "*"
+  LogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/lambda/${SpotMatchFunction}
+      RetentionInDays: 90
+Outputs:
+  SpotMatchFunctionExport:
+    Value: !Ref SpotMatchFunction
+    Export:
+      Name: SpotMatchFunction
