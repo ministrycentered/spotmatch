@@ -1,7 +1,7 @@
 ---
 AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-
+Description: Ensure the number of in-service instances in a Spot ASG is backed up by capacity in an On-Demand ASG
 Resources:
   SpotMatchFunction:
     Type: AWS::Serverless::Function

@@ -1,0 +1,48 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Ensure the number of in-service instances in a Spot ASG is backed up
+  by capacity in an On-Demand ASG
+Outputs:
+  SpotMatchFunctionExport:
+    Export:
+      Name: SpotMatchFunction
+    Value:
+      Ref: SpotMatchFunction
+Resources:
+  LogGroup:
+    Properties:
+      LogGroupName:
+        Fn::Sub: /aws/lambda/${SpotMatchFunction}
+      RetentionInDays: 90
+    Type: AWS::Logs::LogGroup
+  SpotMatchFunction:
+    Properties:
+      AutoPublishAlias: live
+      CodeUri: s3://pco-sam-pipeline-artifacts/446216470388b3554edb9c1dd30813ba
+      Description: Ensure the number of in-service instances in a Spot ASG is backed
+        up by capacity in an On-Demand ASG
+      Handler: main
+      Policies:
+      - AWSLambdaBasicExecutionRole
+      - AWSXrayWriteOnlyAccess
+      - Statement:
+        - Action:
+          - cloudwatch:GetMetricData
+          - cloudwatch:GetMetricStatistics
+          - cloudwatch:ListMetrics
+          Effect: Allow
+          Resource:
+          - '*'
+        Version: '2012-10-17'
+      - Statement:
+        - Action:
+          - autoscaling:DescribeAutoScalingGroups
+          - autoscaling:UpdateAutoScalingGroup
+          Effect: Allow
+          Resource:
+          - '*'
+        Version: 2012-10-17
+      Runtime: go1.x
+      Timeout: 5
+      Tracing: Active
+    Type: AWS::Serverless::Function
+Transform: AWS::Serverless-2016-10-31
