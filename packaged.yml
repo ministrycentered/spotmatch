@@ -17,7 +17,7 @@ Resources:
   SpotMatchFunction:
     Properties:
       AutoPublishAlias: live
-      CodeUri: s3://pco-sam-pipeline-artifacts/446216470388b3554edb9c1dd30813ba
+      CodeUri: s3://pco-sam-pipeline-artifacts-public/9577350ae9ae3420fbe30c9b12f029ea
       Description: Ensure the number of in-service instances in a Spot ASG is backed
         up by capacity in an On-Demand ASG
       Handler: main
