@@ -18,7 +18,7 @@ The output of `sam package` includes a CloudFormation template. Use this templat
 
 ## Deploy
 
-[![Launch stack in us-east-1](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=spotmatch&templateURL=https://s3.amazonaws.com/pco-sam-pipeline-artifacts-public/)
+[![Launch stack in us-east-1](https://s3.amazonaws.com/cloudformation-examples/cloudformation-launch-stack.png)](https://console.aws.amazon.com/cloudformation/home?region=us-east-1#/stacks/new?stackName=spotmatch&templateURL=https://s3.amazonaws.com/cf-spotmatch/v1.0/packaged.yml)
 
 ## Usage
 
